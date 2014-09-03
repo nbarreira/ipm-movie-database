@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'json/pure'
 require_relative 'model'
 
 enable :sessions
