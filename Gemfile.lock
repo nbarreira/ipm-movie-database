@@ -4,6 +4,7 @@ GEM
     bacon (1.2.0)
     daemons (1.1.9)
     eventmachine (1.0.3)
+    json_pure (1.8.1)
     pg (0.17.1)
     rack (1.5.2)
     rack-protection (1.5.2)
@@ -28,6 +29,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  json_pure
   pg
   sequel
   sinatra (~> 1.4.4)
