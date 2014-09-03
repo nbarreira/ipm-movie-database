@@ -6,7 +6,7 @@ gem 'thin'
 
 gem 'sequel'
 gem 'sinatra-sequel'
-
+gem 'json_pure'
 
 group :development do
  gem 'sqlite3'
