@@ -2,13 +2,13 @@
 import requests
 import json
 
-#SERVER_URL = "http://localhost:5000"
-SERVER_URL = "http://calm-shore-3603.herokuapp.com"
+SERVER_URL = "http://localhost:5000"
+#SERVER_URL = "http://calm-shore-3603.herokuapp.com"
 
 
-r = requests.get(SERVER_URL + "/status")
+r = requests.get(SERVER_URL + "/session")
 # GET / => No user logged in!
-print "GET /status => " +  r.text 
+print "GET /session => " +  r.text 
 
 logindata = dict(username='test1', passwd='incorrect password')
 r = requests.post(SERVER_URL + "/login", data=logindata)
@@ -24,9 +24,9 @@ print "POST /login => " + r.text
 # Use them in all the API requests that need authentication
 session_cookies = r.cookies 
 
-r = requests.get(SERVER_URL + "/status", cookies=session_cookies)
+r = requests.get(SERVER_URL + "/session", cookies=session_cookies)
 # GET / => User "test1" is logged in!
-print "GET /status => " +  r.text 
+print "GET /session => " +  r.text 
 
 # The same movie cannot be inserted twice! 
 # title and year are mandatory fields!
@@ -55,9 +55,9 @@ r = requests.get(SERVER_URL + "/movies/" + str(movie_id))
 print "GET /movies/" + str(movie_id) +" => " + r.text 
 
 
-r = requests.delete(SERVER_URL + "/movies/" + str(movie_id), cookies=session_cookies)
+r = requests.delete(SERVER_URL + "/movies/" + str(1), cookies=session_cookies)
 # DELETE /movies/XX {'op': 'DELETE /movies/XX', 'result': 'success' }
-print "DELETE /movies/" + str(movie_id) + " " + r.text
+print "DELETE /movies/" + str(1) + " " + r.text
 
 r = requests.delete(SERVER_URL + "/movies/" + str(movie_id), cookies=session_cookies)
 # {'op': 'DELETE /movies/XX', 'result': 'failure', 'reason': 'not found' }
@@ -72,8 +72,8 @@ print "GET /logout => " +  r.text
 # Update the session cookies after logout
 session_cookies = r.cookies 
 
-r = requests.get(SERVER_URL + "/status", cookies=session_cookies)
+r = requests.get(SERVER_URL + "/session", cookies=session_cookies)
 # GET / => No user logged in!
-print "GET /status => " +  r.text 
+print "GET /session => " +  r.text 
 
 

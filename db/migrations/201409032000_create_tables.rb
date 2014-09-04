@@ -10,15 +10,16 @@ Sequel.migration do
 			String		:username,	:null => false
 			String		:email,		:null => false
 			String		:passwd,	:null =>false
+			unique		:username
 		end
 
 		create_table :movies do
 			primary_key	:id
 			String		:title, 	:null=>false
-			text		:synopsis
-			String		:url_image
+			text		:synopsis,  :null=>false
+			String		:url_image, :null=>false
 			integer		:year, 		:null=>false
-			String		:category 
+			String		:category,  :null=>false
 			foreign_key	:user_id,	:users		
 			unique 		[:title, :year]
 		end
@@ -27,13 +28,13 @@ Sequel.migration do
 			primary_key	:id
 			text		:content, 		:null=>false
 			date		:comment_date,	:null=>false
-			foreign_key	:movie_id,		:movies
+			foreign_key	:movie_id,		:movies, :on_delete=>:cascade
 			foreign_key	:user_id,		:users
 		end
 
 		create_table :favs do
 			primary_key	:id
-			foreign_key	:movie_id,		:movies
+			foreign_key	:movie_id,		:movies, :on_delete=>:cascade
 			foreign_key	:user_id,		:users
 		end
 

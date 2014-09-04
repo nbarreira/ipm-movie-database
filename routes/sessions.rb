@@ -6,11 +6,11 @@ module Sinatra
 
         def self.registered(app)
 
-			app.get '/status' do
+			app.get '/session' do
 				if session['username'].nil? 
-					success_message('GET /status', 'no user logged in')
+					not_found_error('GET /session')
 				else
-					success_message('GET /status', session['username'])
+					success_message('GET /session', session['username'])
 				end
 			end
 

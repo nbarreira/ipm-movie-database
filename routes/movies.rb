@@ -37,16 +37,21 @@ module Sinatra
 					authentication_error('POST /movies')
 				else
 					begin
-						movie = Movie.new do |m|
-							m.title = params[:title]
-							m.synopsis = params[:synopsis]
-							m.url_image = params[:url_image]
-							m.year = params[:year]
-							m.category = params[:category]
-							m.user_id = session['user_id']
+					    n = Movie.where(:user_id=>session['user_id']).count
+					    if (n < USER_LIMIT)
+							movie = Movie.new do |m|
+								m.title = params[:title]
+								m.synopsis = params[:synopsis]
+								m.url_image = params[:url_image]
+								m.year = params[:year]
+								m.category = params[:category]
+								m.user_id = session['user_id']
+							end
+							movie.save
+							success_message('POST /movies', movie.id)
+						else 
+							internal_error('POST /movies/', 'limit exceeded')
 						end
-						movie.save
-						success_message('POST /movies', movie.id)
 					rescue Sequel::Error
 						internal_error('POST /movies/', $!.message)
 					end 
@@ -55,7 +60,7 @@ module Sinatra
 
 			app.delete '/movies/:id' do |movie_id|
 				if !is_authenticated? 
-					authentication_error('POST /movies')
+					authentication_error('DELETE /movies')
 				else
 					begin		
 						n = Movie.where(:id => movie_id, :user_id=>session['user_id']).delete
