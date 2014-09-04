@@ -2,8 +2,9 @@
 import requests
 import json
 
-#SERVER_URL = "http://localhost:5000"
-SERVER_URL = "http://calm-shore-3603.herokuapp.com"
+SERVER_URL = "http://localhost:5000"
+#SERVER_URL = "http://calm-shore-3603.herokuapp.com"
+
 
 r = requests.get(SERVER_URL + "/status")
 # GET / => No user logged in!
@@ -39,7 +40,7 @@ print "POST /movies => " + r.text
 
 # Get the new movie_id from the response
 post_response = eval(r.text)
-movie_id = post_response['movie_id']
+movie_id = post_response['data']
 
 r = requests.get(SERVER_URL + "/movies")
 # GET /movies => [{"id":1,"title":"The Godfather","url_image":"http://...
@@ -62,10 +63,6 @@ r = requests.delete(SERVER_URL + "/movies/" + str(movie_id), cookies=session_coo
 # {'op': 'DELETE /movies/XX', 'result': 'failure', 'reason': 'not found' }
 print "DELETE /movies/" + str(movie_id) + " "  + r.text
 
-
-r = requests.get(SERVER_URL + "/movies/1")
-# GET /movies/1 => {"id":1,"title":"The Godfather","synopsis":"The aging...
-print "GET /movies/1 => " + r.text 
 
 
 r = requests.get(SERVER_URL + "/logout", cookies=session_cookies)

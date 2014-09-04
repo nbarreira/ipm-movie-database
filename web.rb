@@ -1,6 +1,8 @@
 require 'sinatra'
 require 'json/pure'
-require_relative 'model'
+require 'sinatra/json'
+require './model'
+
 
 enable :sessions
 
@@ -10,27 +12,27 @@ PAGE_SIZE = 10
 # USER API
 get '/status' do
 	if session['username'].nil? 
-		"No user logged in!"
+		json :op =>'GET /status', :result=>'No user logged in!'
 	else
-		"User " + session['username'].inspect + " is logged in!"
+		json :op =>'GET /status', :result=>'User ' + session['username'].inspect + ' is logged in!'
 	end
 end
 
 post '/login' do 
 	user = User.where(:username=>params[:username], :passwd=>params[:passwd]).first
 	if user.nil?
-		"{'op': 'POST /login', 'result': 'failure'}"
+		json :op=>'POST /login', :result=>'failure'
 	else
 		session['username'] = user.username
 		session['user_id'] = user.id
-		"{'op': 'POST /login', 'result': 'success' }"
+		json :op=>'POST /login', :result=>'success'
 	end
 end
 
 get '/logout' do
 	session['username'] = nil
 	session['user_id'] = nil
-	"{'op': 'GET /logout', 'result': 'success'}"
+	json :op=>'GET /logout', :result=>'success'
 end	
 
 
@@ -47,16 +49,16 @@ end
 get '/movies/:id' do |id|
 	m = Movie[id]
 	if m.nil?
-		"{}"
+		json :op=>'GET /movies/' + id, :result=>'failure', :reason=> 'not found'
 	else
+	#  Movie.select(:title, :username).association_join(:user)[id]
 		m.to_json
 	end
 end
 
 post '/movies' do
 	if session['username'].nil? 
-		"{'op': 'POST /movies', 'result': 'failure', " + 
-			"'reason': 'no user logged in'}"
+		json :op=>'POST /movies', :result=>'failure', :reason=> 'no user logged in'
 	else
 		begin
 			movie = Movie.new do |m|
@@ -68,30 +70,26 @@ post '/movies' do
 				m.user_id = session['user_id']
 			end
 			movie.save
-			"{'op': 'POST /movies', 'result': 'success', 'movie_id': #{movie.id} }"
+			json :op=>'POST /movies', :result=>'success', 'movie_id'=> movie.id
 		rescue Sequel::Error
-			"{'op': 'POST /movies', 'result': 'failure',  " + 
-				"'reason': '" + $!.message + "'}"
+			json :op=>'POST /movies', :result=>'failure', :reason=>$!.message
 		end 
 	end
 end
 
 delete '/movies/:id' do |movie_id|
 	if session['username'].nil? 
-		"{'op': 'POST /movies/#{movie_id}', 'result': 'failure', " + 
-			"'reason': 'no user logged in'}"
+		json :op=>'POST /movies/' + movie_id, :result=>'failure', :reason=> 'no user logged in'
 	else
 		begin		
 			n = Movie.where(:id => movie_id, :user_id=>session['user_id']).delete
 			if n == 1
-	   		    "{'op': 'DELETE /movies/#{movie_id}', 'result': 'success' }"
+	   		    json :op=>'DELETE /movies/' + movie_id, :result=>'success'
 	   		else
-	   		    "{'op': 'DELETE /movies/#{movie_id}', 'result': 'failure', " +
-		   		    "'reason': 'not found' }"
+	   		    json :op=>'DELETE /movies/' + movie_id, :result=>'failure', :reason=>'not found'
 	   		end
 		rescue Sequel::Error
-			"{'op': 'DELETE /movies/#{movie_id}', 'result': 'failure', " + 
-				"'reason': '" + $!.message + "'}"
+			json :op=>'DELETE /movies/' + movie_id, :result=>'failure', :reason=>$!.message
 		end 
 	end
 end
@@ -99,8 +97,7 @@ end
 
 put '/movies/:id' do |movie_id|
 	if session['username'].nil? 
-		"{'op': 'PUT /movies/#{movie_id}', 'result': 'failure', " + 
-			"'reason': 'no user logged in'}"
+		json :op=>'PUT /movies/' + movie_id, :result=>'failure', :reason=> 'no user logged in'
 	else
 		begin
 			n = Movie.where(:id => movie_id, :user_id=>session['user_id'])
@@ -109,10 +106,9 @@ put '/movies/:id' do |movie_id|
 							:url_image => params[:url_image],
 							:year => params[:year],
 							:category => params[:category])
-			"{'op': 'PUT /movies/#{movie_id}', 'result': 'success'}"
+			json :op=>'PUT /movies/' + movie_id, :result=>'success'
 		rescue Sequel::Error
-			"{'op': 'PUT /movies/#{movie_id}', 'result': 'failure',  " + 
-				"'reason': '" + $!.message + "'}"
+			json :op=>'PUT /movies/' + movie_id, :result=>'failure', :reason=>$!.message
 		end 
 	end
 end

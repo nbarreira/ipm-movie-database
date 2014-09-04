@@ -6,6 +6,7 @@ gem 'thin'
 
 gem 'sequel'
 gem 'sinatra-sequel'
+gem 'sinatra-contrib'
 gem 'json_pure'
 
 group :development do
