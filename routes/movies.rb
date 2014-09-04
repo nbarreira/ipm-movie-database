@@ -6,12 +6,18 @@ module Sinatra
         def self.registered(app)
 
 			app.get '/movies' do
-				Movie.select(:id, :title, :url_image, :year).all.to_json
+				success_message("GET /movies", 
+								Movie.select(:id, :title, :url_image, :year).all)
 			end
 
 			app.get '/movies/page/:n' do |page|
-				Movie.dataset.select(:id, :title, :url_image, :year)
-				.order(:id).paginate(page.to_i,PAGE_SIZE).to_json
+				movies = Movie.dataset.select(:id, :title, :url_image, :year)
+								.order(:id).paginate(page.to_i,PAGE_SIZE)
+				if movies.empty?
+					not_found_error('GET /movies/p/' + page)
+				else
+					success_message("GET /movies/p/" + page, movies)
+				end
 			end
 
 			app.get '/movies/:id' do |id|
@@ -22,7 +28,7 @@ module Sinatra
 					m.values[:id] = id.to_i
 					m.values.delete(:user_id)
 					m.values.delete(:passwd)
-					m.values.to_json
+					success_message("GET /movies/" + id, m.values)
 				end
 			end
 
@@ -76,7 +82,11 @@ module Sinatra
 										:url_image => params[:url_image],
 										:year => params[:year],
 										:category => params[:category])
-						success_message('PUT /movies/' + movie_id)
+						if n == 1
+							success_message('PUT /movies/' + movie_id)
+						else
+							not_found_error('PUT /movies/' + movie_id)
+	   					end
 					rescue Sequel::Error
 						internal_error('PUT /movies/' + movie_id, $!.message)
 					end 

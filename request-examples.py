@@ -2,8 +2,8 @@
 import requests
 import json
 
-SERVER_URL = "http://localhost:5000"
-#SERVER_URL = "http://calm-shore-3603.herokuapp.com"
+#SERVER_URL = "http://localhost:5000"
+SERVER_URL = "http://calm-shore-3603.herokuapp.com"
 
 
 r = requests.get(SERVER_URL + "/status")
