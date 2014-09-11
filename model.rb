@@ -5,10 +5,6 @@ require 'sequel/extensions/pagination'
 
 require_relative 'environments'
 
-#set :database, 	'postgres://noelia:pass@localhost/ficmdb'
-
-#DB = Sequel.sqlite('./db/data.db')
-
 
 Sequel::Model.plugin :json_serializer
 Sequel::Model.db.extension(:pagination)

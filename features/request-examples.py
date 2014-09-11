@@ -2,8 +2,8 @@
 import requests
 import json
 
-SERVER_URL = "http://localhost:5000"
-#SERVER_URL = "http://calm-shore-3603.herokuapp.com"
+#SERVER_URL = "http://localhost:5000"
+SERVER_URL = "http://calm-shore-3603.herokuapp.com"
 
 
 r = requests.get(SERVER_URL + "/session")
@@ -55,9 +55,6 @@ r = requests.get(SERVER_URL + "/movies/" + str(movie_id))
 print "GET /movies/" + str(movie_id) +" => " + r.text 
 
 
-r = requests.delete(SERVER_URL + "/movies/" + str(1), cookies=session_cookies)
-# DELETE /movies/XX {'op': 'DELETE /movies/XX', 'result': 'success' }
-print "DELETE /movies/" + str(1) + " " + r.text
 
 r = requests.delete(SERVER_URL + "/movies/" + str(movie_id), cookies=session_cookies)
 # {'op': 'DELETE /movies/XX', 'result': 'failure', 'reason': 'not found' }

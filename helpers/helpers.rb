@@ -14,6 +14,10 @@ module Sinatra
       def not_found_error(op)
 		json :request=> op, :result=>'failure', :reason=> 'not found'
       end
+
+      def incorrect_url(op)
+		json :request=> op, :result=>'failure', :reason=> 'incorrect url'
+      end
       
       def success_message(op, extra = nil)
       	if extra.nil?

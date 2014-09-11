@@ -6,10 +6,10 @@ Feature: 	delete a movie
 		 then 	we get a message of "<message>"
 		 
      Examples:
-     	| movie_id 	| message |
-     	| 2         | success |
-     	| 3         | failure |
-     	| 9999      | failure |
+     	| movie_id 				| message |
+     	| my_movie_2			| success |
+     	| other_user_movie		| failure |
+     	| non_existing_movie	| failure |
 
 
 
@@ -18,5 +18,5 @@ Feature: 	delete a movie
 		 then 	we get a message of "<message>"
      Examples:
      	| movie_id 	| message |
-     	| 1         | failure |
+     	| my_movie  | failure |
 

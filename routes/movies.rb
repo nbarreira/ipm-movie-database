@@ -11,12 +11,12 @@ module Sinatra
 			end
 
 			app.get '/movies/page/:n' do |page|
-				movies = Movie.dataset.select(:id, :title, :url_image, :year)
+				movies = Movie.select(:id, :title, :url_image, :year)
 								.order(:id).paginate(page.to_i,PAGE_SIZE)
 				if movies.empty?
-					not_found_error('GET /movies/p/' + page)
+					not_found_error('GET /movies/page/' + page)
 				else
-					success_message("GET /movies/p/" + page, movies)
+					success_message("GET /movies/page/" + page, movies)
 				end
 			end
 

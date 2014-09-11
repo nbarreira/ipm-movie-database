@@ -14,6 +14,7 @@ def step_impl(context):
 
 @then('we get a message of "{text}"')
 def step_impl(context, text):
+	print context.response
 	assert context.response['result'] == text
 	
 

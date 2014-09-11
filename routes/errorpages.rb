@@ -5,7 +5,7 @@ module Sinatra
 
         def self.registered(app)
 			app.not_found do
-				not_found_error(request.request_method + " " + request.path)
+				incorrect_url(request.request_method + " " + request.path)
 			end
 			
 			app.error do
