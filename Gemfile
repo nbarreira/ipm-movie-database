@@ -14,6 +14,6 @@ group :development do
  gem 'foreman'
 end
 
-#group :production do
-# gem 'pg'
-#end
+group :production do
+ gem 'pg'
+end

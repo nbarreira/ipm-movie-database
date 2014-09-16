@@ -36,7 +36,7 @@ module Sinatra
 
 			app.post '/movies/:id/comments' do |movie_id|
 				if !is_authenticated? 
-					authentication_error('POST /movies/' + movie_id + '/comments/')
+					authentication_error('POST /movies/' + movie_id + '/comments')
 				else
 					begin
 					    n = Comment.count
@@ -48,9 +48,9 @@ module Sinatra
 								c.comment_date = Date.today
 							end
 							comment.save
-							success_message('POST /movies/' + movie_id + '/comments/', comment.id)
+							success_message('POST /movies/' + movie_id + '/comments', comment.id)
 						else 
-							internal_error('POST /movies/' + movie_id + '/comments/', 'limit exceeded')
+							internal_error('POST /movies/' + movie_id + '/comments', 'limit exceeded')
 						end
 					rescue Sequel::Error
 						internal_error('POST /movies/' + movie_id + '/comments/', $!.message)

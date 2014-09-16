@@ -3,7 +3,7 @@ require 'json/pure'
 require 'sinatra/json'
 
 
-require_relative 'model'
+require_relative 'model/model'
 require_relative 'helpers/helpers'
 require_relative 'routes/sessions'
 require_relative 'routes/movies'
