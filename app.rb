@@ -14,7 +14,7 @@ require_relative 'routes/errorpages'
 # Constants
 PAGE_SIZE 	 = 10
 GLOBAL_LIMIT = 2000
-USER_LIMIT	 = 3
+USER_LIMIT	 = 20
  
 class MovieDBApp < Sinatra::Base
  
