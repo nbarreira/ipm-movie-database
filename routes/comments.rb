@@ -6,7 +6,7 @@ module Sinatra
         def self.registered(app)
 
 			app.get '/movies/:id/comments' do |movie_id|
-			    # Roundabout to export data from two different models to json
+			    # Workaround to export data from two different models to json
 				comments = Array.new  
 				Comment.association_join(:user)
 						.select(:comments__id, :content, :comment_date, :username, :email)
@@ -20,7 +20,7 @@ module Sinatra
 			end
 
 			app.get '/movies/:id/comments/page/:n' do |movie_id, page|
-			    # Roundabout to export data from two different models to json
+			    # Workaround to export data from two different models to json
 				comments = Array.new  
 				Comment.association_join(:user)
 					.select(:comments__id, :content, :comment_date, :username, :email)
