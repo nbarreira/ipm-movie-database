@@ -6,13 +6,20 @@ module Sinatra
         def self.registered(app)
 
 			app.get '/movies' do
-				success_message("GET /movies", 
-								Movie.select(:id, :title, :url_image, :year).all)
+				movies = Array.new
+				Movie.select(:id, :title, :url_image, :year)
+				  	 .all
+					 .each{ |item| movies << item.values }
+
+				success_message("GET /movies", movies)
 			end
 
 			app.get '/movies/page/:n' do |page|
-				movies = Movie.select(:id, :title, :url_image, :year)
-								.order(:id).paginate(page.to_i,PAGE_SIZE)
+				movies = Array.new
+				Movie.select(:id, :title, :url_image, :year)
+				  	 .order(:id).paginate(page.to_i,PAGE_SIZE)
+					 .each{ |item| movies << item.values }
+								
 				if movies.empty?
 					not_found_error('GET /movies/page/' + page)
 				else

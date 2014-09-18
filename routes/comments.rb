@@ -9,7 +9,7 @@ module Sinatra
 			    # Roundabout to export data from two different models to json
 				comments = Array.new  
 				Comment.association_join(:user)
-						.select(:content, :comment_date, :username, :email)
+						.select(:comments__id, :content, :comment_date, :username, :email)
 						.where(:movie_id=> movie_id)
 						.each{ |item| comments << item.values }
 				if comments.empty?
@@ -23,7 +23,7 @@ module Sinatra
 			    # Roundabout to export data from two different models to json
 				comments = Array.new  
 				Comment.association_join(:user)
-					.select(:content, :comment_date, :username, :email)
+					.select(:comments__id, :content, :comment_date, :username, :email)
 					.where(:movie_id=> movie_id)
 					.order(:comment_date).paginate(page.to_i,PAGE_SIZE).all
 					.each{ |item| comments << item.values }
