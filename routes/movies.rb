@@ -13,10 +13,9 @@ module Sinatra
 					  	 .all
 						 .each{ |item| movies << item.values }
 					success_message("GET /movies", movies)
-				else
-					
+				else					
 					Movie.select(:id, :title, :url_image, :year)
-						 .where(Sequel.like(Sequel.function(:lower, :title), '%' + query.downcase + '%'))
+						 .where(Sequel.ilike(:title, '%' + query + '%'))
 					  	 .all
 						 .each{ |item| movies << item.values }
 					success_message("GET /movies?q=" + query, movies)
