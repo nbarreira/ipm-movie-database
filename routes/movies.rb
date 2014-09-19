@@ -6,14 +6,24 @@ module Sinatra
         def self.registered(app)
 
 			app.get '/movies' do
+				query = params[:q]
 				movies = Array.new
-				Movie.select(:id, :title, :url_image, :year)
-				  	 .all
-					 .each{ |item| movies << item.values }
-
-				success_message("GET /movies", movies)
+				if query.nil?
+					Movie.select(:id, :title, :url_image, :year)
+					  	 .all
+						 .each{ |item| movies << item.values }
+					success_message("GET /movies", movies)
+				else
+					
+					Movie.select(:id, :title, :url_image, :year)
+						 .where(Sequel.like(Sequel.function(:lower, :title), '%' + query.downcase + '%'))
+					  	 .all
+						 .each{ |item| movies << item.values }
+					success_message("GET /movies?q=" + query, movies)
+			end					
 			end
-
+			
+			
 			app.get '/movies/page/:n' do |page|
 				movies = Array.new
 				Movie.select(:id, :title, :url_image, :year)
@@ -105,7 +115,7 @@ module Sinatra
 				end
 			end
 
-
+			
 			
 		end
 
