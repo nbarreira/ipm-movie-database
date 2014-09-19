@@ -163,6 +163,16 @@ $ curl -X DELETE http://localhost:5000/movies/4 --cookie cookies.txt
 
 {"request":"DELETE /movies/4","result":"success"}
 ```
+ - Search movies by title
+```HTTP
+GET /movies?q=XXXX
+```
+Example: 
+```sh
+$ curl http://localhost:5000/movies?q=godfather
+
+{"request":"GET /movies?q=godfather","result":"success","data":[{"id":1,"title":"The Godfather","url_image":"http://ia.media-imself.com/images/M/MV5BMjEyMjcyNDI4MF5BMl5BanBnXkFtZTcwMDA5Mzg3OA@@._V1_SX214_AL_.jpg","year":1972}]}
+```
 
 ### Movie comments
 - Get all the comments of a movie
