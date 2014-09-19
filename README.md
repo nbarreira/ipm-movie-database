@@ -13,7 +13,7 @@ apt-get install ruby bundler sqlite3 libsqlite3-dev
 Clone the repository, install locally the dependencies, create the database
 and start the web server as follows:
 ```sh
-git clone https://github.com/nbarreira/movie-database-server.git
+git clone https://github.com/nbarreira/ipm-movie-database.git
 cd movie-database-server
 bundle install --without production # Install development dependencies 
 bundle exec sequel -m db/migrations/ sqlite://db/data.db  # Create the database
