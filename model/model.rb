@@ -3,7 +3,7 @@ require 'sinatra/sequel'
 require 'sequel/plugins/json_serializer'
 require 'sequel/extensions/pagination'
 
-require_relative '../environments'
+require File.join(File.dirname(__FILE__), '/../environments')
 
 
 Sequel::Model.plugin :json_serializer

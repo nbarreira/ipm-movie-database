@@ -9,15 +9,10 @@ module Sinatra
 				query = params[:q]
 				movies = Array.new
 				if query.nil?
-					Movie.select(:id, :title, :url_image, :year)
-					  	 .all
-						 .each{ |item| movies << item.values }
+					Movie.select(:id, :title, :url_image, :year).all.each{ |item| movies << item.values }
 					success_message("GET /movies", movies)
 				else					
-					Movie.select(:id, :title, :url_image, :year)
-						 .where(Sequel.ilike(:title, '%' + query + '%'))
-					  	 .all
-						 .each{ |item| movies << item.values }
+					Movie.select(:id, :title, :url_image, :year).where(Sequel.ilike(:title, '%' + query + '%')).all.each{ |item| movies << item.values }
 					success_message("GET /movies?q=" + query, movies)
 			end					
 			end
@@ -25,9 +20,7 @@ module Sinatra
 			
 			app.get '/movies/page/:n' do |page|
 				movies = Array.new
-				Movie.select(:id, :title, :url_image, :year)
-				  	 .order(:id).paginate(page.to_i,PAGE_SIZE)
-					 .each{ |item| movies << item.values }
+				Movie.select(:id, :title, :url_image, :year).order(:id).paginate(page.to_i,PAGE_SIZE).each{ |item| movies << item.values }
 								
 				if movies.empty?
 					not_found_error('GET /movies/page/' + page)
@@ -97,8 +90,7 @@ module Sinatra
 					authentication_error('POST /movies')
 				else
 					begin
-						n = Movie.where(:id => movie_id, :user_id=>session['user_id'])
-							 	 .update(:title => params[:title], 
+						n = Movie.where(:id => movie_id, :user_id=>session['user_id']).update(:title => params[:title], 
 										:synopsis => params[:synopsis],
 										:url_image => params[:url_image],
 										:year => params[:year],

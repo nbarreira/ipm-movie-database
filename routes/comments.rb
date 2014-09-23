@@ -8,10 +8,7 @@ module Sinatra
 			app.get '/movies/:id/comments' do |movie_id|
 			    # Workaround to export data from two different models to json
 				comments = Array.new  
-				Comment.association_join(:user)
-						.select(:comments__id, :content, :comment_date, :username, :email)
-						.where(:movie_id=> movie_id)
-						.each{ |item| comments << item.values }
+				Comment.association_join(:user).select(:comments__id, :content, :comment_date, :username, :email).where(:movie_id=> movie_id).each{ |item| comments << item.values }
 				if comments.empty?
 					not_found_error('GET /movies/' + movie_id +'/comments')
 				else
@@ -22,11 +19,7 @@ module Sinatra
 			app.get '/movies/:id/comments/page/:n' do |movie_id, page|
 			    # Workaround to export data from two different models to json
 				comments = Array.new  
-				Comment.association_join(:user)
-					.select(:comments__id, :content, :comment_date, :username, :email)
-					.where(:movie_id=> movie_id)
-					.order(:comment_date).paginate(page.to_i,PAGE_SIZE).all
-					.each{ |item| comments << item.values }
+				Comment.association_join(:user).select(:comments__id, :content, :comment_date, :username, :email).where(:movie_id=> movie_id).order(:comment_date).paginate(page.to_i,PAGE_SIZE).all.each{ |item| comments << item.values }
 				if comments.empty?
 					not_found_error('GET /movies/' + movie_id +'/comments/page/' + page)
 				else
