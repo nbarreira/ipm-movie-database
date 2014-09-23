@@ -6,13 +6,14 @@ API REST written in Ruby using the [Sinatra](http://www.sinatrarb.com) framework
 
 After you have [Ruby](https://www.ruby-lang.org), [Bundler](http://bundler.io) and  [SQLite3](http://www.sqlite.org) installed on your machine:
 ```sh
-# In a debian/ubuntu distribution install the following packages
+# In a debian/ubuntu distribution install the following packages as root / sudo
 apt-get install ruby bundler sqlite3 libsqlite3-dev
 ```
 
 Clone the repository, install locally the dependencies, create the database
 and start the web server as follows:
 ```sh
+# Run these commands as user, NEVER AS ROOT/SUDO!
 git clone https://github.com/nbarreira/ipm-movie-database.git
 cd movie-database-server
 bundle install --without production # Install development dependencies 
