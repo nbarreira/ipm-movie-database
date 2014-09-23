@@ -15,7 +15,7 @@ and start the web server as follows:
 ```sh
 # Run these commands as user, NEVER AS ROOT/SUDO!
 git clone https://github.com/nbarreira/ipm-movie-database.git
-cd movie-database-server
+cd ipm-movie-database
 bundle install --without production # Install development dependencies 
 bundle exec sequel -m db/migrations/ sqlite://db/data.db  # Create the database
 bundle exec foreman start   # Run the web server
