@@ -129,7 +129,7 @@ $ curl http://localhost:5000/movies/2
 ```
  - Post a new movie (requires authentication)
 ```HTTP
-POST /movies/ title=XXX&synopsis=XXX&url_image=XXX&year=XXX&category=XXX
+POST /movies title=XXX&synopsis=XXX&url_image=XXX&year=XXX&category=XXX
 ```
 If there is no error, this request returns the id of the new movie.
 
