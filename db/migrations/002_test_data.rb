@@ -9,21 +9,21 @@ Sequel.migration do
 
 		self[:movies].insert(:id=>1,:title=>'The Godfather', 
 					:synopsis=>'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.', 
-					:url_image=>'http://ia.media-imself.com/images/M/MV5BMjEyMjcyNDI4MF5BMl5BanBnXkFtZTcwMDA5Mzg3OA@@._V1_SX214_AL_.jpg',
+					:url_image=>'http://keyartdesigns.com/wp-content/uploads/2010/09/the-godfather-movie-poster-1020243893-191x296.jpg',
 					:year=>1972,
 					:category=>'Crime',
 					:user_id=>1)
 					
 		self[:movies].insert(:id=>2,:title=>'The Dark Knight',
 					:synopsis=>'When Batman, Gordon and Harvey Dent launch an assault on the mob, they let the clown out of the box, the Joker, bent on turning Gotham on itself and bringing any heroes down to his level.',
-					:url_image=>'http://ia.media-imself.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_SY317_CR0,0,214,317_AL_.jpg',
+					:url_image=>'http://keyartdesigns.com/wp-content/uploads/2010/08/dark_knight_ver4_xlg-199x296.jpg',
 					:year=>2008,
 					:category=>'Action',
 					:user_id=>1)					
 
 		self[:movies].insert(:id=>3,:title=>'Fight Club',
 					:synopsis=>'An insomniac office worker looking for a way to change his life crosses paths with a devil-may-care soap maker and they form an underground fight club that evolves into something much, much more...',
-					:url_image=>'http://ia.media-imself.com/images/M/MV5BMjIwNTYzMzE1M15BMl5BanBnXkFtZTcwOTE5Mzg3OA@@._V1_SX214_AL_.jpg',
+					:url_image=>'http://ia.media-imdb.com/images/M/MV5BMjIwNTYzMzE1M15BMl5BanBnXkFtZTcwOTE5Mzg3OA@@._V1_SX214_AL_.jpg',
 					:year=>1999,
 					:category=>'Drama',
 					:user_id=>2)					
