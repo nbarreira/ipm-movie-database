@@ -3,13 +3,13 @@ require 'json/pure'
 require 'sinatra/json'
 
 
-require_relative 'model/model'
-require_relative 'helpers/helpers'
-require_relative 'routes/sessions'
-require_relative 'routes/movies'
-require_relative 'routes/comments'
-require_relative 'routes/favs'
-require_relative 'routes/errorpages'
+require './model/model'
+require './helpers/helpers'
+require './routes/sessions'
+require './routes/movies'
+require './routes/comments'
+require './routes/favs'
+require './routes/errorpages'
 
 # Constants
 PAGE_SIZE 	 = 10

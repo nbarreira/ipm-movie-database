@@ -6,15 +6,16 @@ API REST written in Ruby using the [Sinatra](http://www.sinatrarb.com) framework
 
 After you have [Ruby](https://www.ruby-lang.org), [Bundler](http://bundler.io) and  [SQLite3](http://www.sqlite.org) installed on your machine:
 ```sh
-# In a debian/ubuntu distribution install the following packages
+# In a debian/ubuntu distribution install the following packages as root / sudo
 apt-get install ruby bundler sqlite3 libsqlite3-dev
 ```
 
 Clone the repository, install locally the dependencies, create the database
 and start the web server as follows:
 ```sh
+# Run these commands as user, NEVER AS ROOT/SUDO!
 git clone https://github.com/nbarreira/ipm-movie-database.git
-cd movie-database-server
+cd ipm-movie-database
 bundle install --without production # Install development dependencies 
 bundle exec sequel -m db/migrations/ sqlite://db/data.db  # Create the database
 bundle exec foreman start   # Run the web server
@@ -128,7 +129,7 @@ $ curl http://localhost:5000/movies/2
 ```
  - Post a new movie (requires authentication)
 ```HTTP
-POST /movies/ title=XXX&synopsis=XXX&url_image=XXX&year=XXX&category=XXX
+POST /movies title=XXX&synopsis=XXX&url_image=XXX&year=XXX&category=XXX
 ```
 If there is no error, this request returns the id of the new movie.
 
