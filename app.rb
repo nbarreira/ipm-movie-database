@@ -22,6 +22,8 @@ class MovieDBApp < Sinatra::Base
  
   enable :sessions
  
+  set :session_secret, 'mysecretarrayofchars'
+ 
   helpers Sinatra::MovieDBApp::Helpers
  
   register Sinatra::MovieDBApp::Routing::Sessions
