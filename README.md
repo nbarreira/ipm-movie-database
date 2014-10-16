@@ -247,7 +247,7 @@ $ curl -X POST http://localhost:5000/movies/3/fav --cookie cookies.txt
 ```
 - Unmark a movie as favorite (requires authentication)
 ```HTTP
-DELETE /movies/<id>/comments/<cid>
+DELETE /movies/<id>/fav
 ```
 Example:
 ```sh
